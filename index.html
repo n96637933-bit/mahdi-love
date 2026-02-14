@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>المفاجأة الكبرى ✨</title>
+
+<style>
+body{
+    margin:0;
+    background:#ffcce6;
+    font-family:Arial;
+    text-align:center;
+    overflow:hidden;
+}
+
+.box{
+    margin-top:100px;
+}
+
+button{
+    padding:12px 25px;
+    margin:10px;
+    border-radius:20px;
+    border:none;
+    font-size:18px;
+    cursor:pointer;
+    background:#ff66b2;
+    color:white;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+.hidden{
+    display:none;
+}
+
+#countdown{
+    font-size:40px;
+    color:#cc0066;
+    margin-top:20px;
+}
+
+#surprise img{
+    width:0;
+    opacity:0;
+    border-radius:20px;
+    margin-top:20px;
+    transition: all 1.2s ease;
+}
+
+#surprise.show img{
+    width:320px;
+    opacity:1;
+}
+
+#finalText{
+    font-size:22px;
+    color:#cc0066;
+    margin-top:20px;
+}
+
+.heart{
+    position:fixed;
+    color:red;
+    animation:fall 4s linear infinite;
+}
+@keyframes fall{
+    0%{top:-10px;opacity:1;}
+    100%{top:100%;opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2 id="question">شنو تحبين أكثر؟ 🍓</h2>
+
+    <button onclick="next()">المفاجآت 🎁</button>
+    <button onclick="next()">الألعاب 🎮</button>
+
+    <div id="countdown" class="hidden"></div>
+
+    <div id="surprise" class="hidden">
+        <h2>المفاجأة وصلت ✨</h2>
+        <img src="7FBC06C2-84DA-49A9-A65D-4B520015CC5C.jpeg">
+        <div id="finalText">
+            شرايج بالإبداع؟ 😌💖 <br>
+            التصميم كيوت رسميًا 👑✨
+        </div>
+    </div>
+</div>
+
+<script>
+let step=0;
+
+function next(){
+    if(step==0){
+        document.getElementById("question").innerHTML="تحبين الهدوء لو الحماس؟ 🌸";
+        step++;
+    }
+    else if(step==1){
+        document.getElementById("question").innerHTML="جاهزة للمفاجأة؟ 😏";
+        step++;
+    }
+    else{
+        startCountdown();
+    }
+}
+
+function startCountdown(){
+    document.getElementById("question").style.display="none";
+    document.querySelectorAll("button").forEach(b=>b.style.display="none");
+
+    let count=3;
+    let cd=document.getElementById("countdown");
+    cd.classList.remove("hidden");
+    cd.innerHTML=count;
+
+    let interval=setInterval(()=>{
+        count--;
+        if(count>0){
+            cd.innerHTML=count;
+        }else{
+            clearInterval(interval);
+            cd.innerHTML="✨";
+            setTimeout(()=>{
+                cd.classList.add("hidden");
+                showSurprise();
+            },800);
+        }
+    },1000);
+}
+
+function showSurprise(){
+    let surprise=document.getElementById("surprise");
+    surprise.classList.remove("hidden");
+    setTimeout(()=>{
+        surprise.classList.add("show");
+    },100);
+
+    startHearts();
+}
+
+function startHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*100+"%";
+        heart.style.fontSize=(Math.random()*20+15)+"px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+    },300);
+}
+</script>
+
+</body>
+</html>
